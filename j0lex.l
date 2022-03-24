@@ -119,7 +119,7 @@
 "\""(.)*"\""                                    {return alctoken(LSTRING);} /* String */
 "/*"([^*]|"*"+[^/*])*"*"+"/"                    {int countlines();countlines();/*todo do we need to do this twice?*/}
 \n		                                        {rows++;}
-[A-Za-z][A-Za-z0-9]*	                        {return alctoken(IDENTIFIER);}
+[A-Za-z_][A-Za-z0-9_]*	                        {return alctoken(IDENTIFIER);}
 <<EOF>>                                         {return -1;}
 [0-9]+("e"|"E")[0-9]+                           {return alctoken(LDOUBLE);}
 [0-9]+"e"                               {return alctoken(1);}
