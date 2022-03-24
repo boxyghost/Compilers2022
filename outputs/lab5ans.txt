@@ -1,0 +1,83 @@
+1. I cannot run it on the source files of the compiler, seeing as they require
+valid java and I am writing this in c, so I assume you mean on some example files...
+./j0 everything.java | wc
+     65      65     289
+./j0 everything.java | uniq
+everything
+main
+String
+int1
+long1
+float1
+double1
+String
+int2
+long2
+float2
+double2
+String
+short1
+int1
+long1
+float1
+double1
+str1
+int2
+int1
+int2
+String
+array1
+x
+y
+x
+y
+x
+y
+x
+y
+x
+y
+x
+y
+x
+y
+x
+y
+x
+c
+int2
+i
+System
+out
+println
+
+I am going to take some liberties of sorting it, then counting it, because I belive
+that is what you really want. If this is wrong, then I'm sorry, I am sort of
+giving up on understanding every requirement for the homeworks/labs, they are
+just too confusing with all of the rewrites and leftovers of c113c.
+
+./j0 everything.java | sort -u | uniq
+array1
+c
+double1
+double2
+everything
+float1
+float2
+i
+int1
+int2
+long1
+long2
+main
+out
+println
+short1
+str1
+String
+System
+x
+y
+
+./j0 everything.java | sort -u | uniq | wc
+     21      21     121

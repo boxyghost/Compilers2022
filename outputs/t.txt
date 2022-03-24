@@ -1,0 +1,510 @@
+  production rule: 1000, number of kids: 4
+    Symbol Name: public, production rule: 292, number of kids: 0
+    Symbol Name: class, production rule: 269, number of kids: 0
+    Symbol Name: Hello, production rule: 267, number of kids: 0
+    production rule: 1003, number of kids: 2
+      production rule: 1003, number of kids: 2
+        production rule: 1003, number of kids: 2
+          production rule: 1007, number of kids: 2
+            Symbol Name: Hello, production rule: 267, number of kids: 0
+            Symbol Name: h1, production rule: 267, number of kids: 0
+          production rule: 1025, number of kids: 2
+            production rule: 1026, number of kids: 4
+              Symbol Name: public, production rule: 292, number of kids: 0
+              Symbol Name: static, production rule: 293, number of kids: 0
+              Symbol Name: int, production rule: 263, number of kids: 0
+              production rule: 1027, number of kids: 2
+                Symbol Name: HelloWorld, production rule: 267, number of kids: 0
+                production rule: 1031, number of kids: 2
+                  Symbol Name: int, production rule: 263, number of kids: 0
+                  Symbol Name: x, production rule: 267, number of kids: 0
+            production rule: 1037, number of kids: 2
+              production rule: 1037, number of kids: 2
+                production rule: 1037, number of kids: 2
+                  production rule: 1037, number of kids: 2
+                    production rule: 1041, number of kids: 2
+                      Symbol Name: int, production rule: 263, number of kids: 0
+                      Symbol Name: sus, production rule: 267, number of kids: 0
+                    production rule: 1120, number of kids: 3
+                      production rule: 6913, number of kids: 1
+                        Symbol Name: sus, production rule: 267, number of kids: 0
+                      production rule: 1124, number of kids: 1
+                        Symbol Name: =, production rule: 286, number of kids: 0
+                      production rule: 6900, number of kids: 1
+                        Symbol Name: "yo", production rule: 274, number of kids: 0
+                  production rule: 1120, number of kids: 3
+                    production rule: 1122, number of kids: 2
+                      Symbol Name: int, production rule: 263, number of kids: 0
+                      production rule: 6909, number of kids: 1
+                        Symbol Name: b, production rule: 267, number of kids: 0
+                    production rule: 1124, number of kids: 1
+                      Symbol Name: =, production rule: 286, number of kids: 0
+                    production rule: 6900, number of kids: 1
+                      Symbol Name: "b", production rule: 274, number of kids: 0
+                production rule: 1130, number of kids: 2
+                  Symbol Name: h1, production rule: 267, number of kids: 0
+                  Symbol Name: ++, production rule: 308, number of kids: 0
+              production rule: 1085, number of kids: 2
+                Symbol Name: goodbyeWorld, production rule: 267, number of kids: 0
+        Empty Node
+        production rule: 1025, number of kids: 2
+          production rule: 1026, number of kids: 4
+            Symbol Name: public, production rule: 292, number of kids: 0
+            Symbol Name: static, production rule: 293, number of kids: 0
+            Symbol Name: int, production rule: 263, number of kids: 0
+            production rule: 1027, number of kids: 2
+              Symbol Name: goodbyeWorld, production rule: 267, number of kids: 0
+              production rule: 1031, number of kids: 2
+                Symbol Name: int, production rule: 263, number of kids: 0
+                Symbol Name: y, production rule: 267, number of kids: 0
+          production rule: 1037, number of kids: 2
+            production rule: 1037, number of kids: 2
+              production rule: 1037, number of kids: 2
+                production rule: 1037, number of kids: 2
+                  production rule: 1037, number of kids: 2
+                    production rule: 1037, number of kids: 2
+                      production rule: 1037, number of kids: 2
+                        production rule: 1037, number of kids: 2
+                          production rule: 1085, number of kids: 2
+                            Symbol Name: HelloWorld, production rule: 267, number of kids: 0
+                            Symbol Name: 3, production rule: 272, number of kids: 0
+                          production rule: 1120, number of kids: 3
+                            production rule: 1122, number of kids: 2
+                              Symbol Name: Hello, production rule: 267, number of kids: 0
+                              production rule: 6909, number of kids: 1
+                                Symbol Name: x, production rule: 267, number of kids: 0
+                            production rule: 1124, number of kids: 1
+                              Symbol Name: =, production rule: 286, number of kids: 0
+                            production rule: 6900, number of kids: 1
+                              production rule: 1158, number of kids: 2
+                                Symbol Name: new, production rule: 304, number of kids: 0
+                                Symbol Name: Hello, production rule: 267, number of kids: 0
+                        production rule: 1120, number of kids: 3
+                          production rule: 1122, number of kids: 2
+                            Symbol Name: int, production rule: 263, number of kids: 0
+                            production rule: 6909, number of kids: 1
+                              Symbol Name: array1, production rule: 267, number of kids: 0
+                          production rule: 1124, number of kids: 1
+                            Symbol Name: =, production rule: 286, number of kids: 0
+                          production rule: 6900, number of kids: 1
+                            production rule: 1149, number of kids: 3
+                              Symbol Name: new, production rule: 304, number of kids: 0
+                              Symbol Name: int, production rule: 263, number of kids: 0
+                              Symbol Name: 10, production rule: 272, number of kids: 0
+                      production rule: 1041, number of kids: 2
+                        Symbol Name: int, production rule: 263, number of kids: 0
+                        Symbol Name: redefined, production rule: 267, number of kids: 0
+                    production rule: 1041, number of kids: 2
+                      Symbol Name: int, production rule: 263, number of kids: 0
+                      Symbol Name: redefined, production rule: 267, number of kids: 0
+                  production rule: 1120, number of kids: 3
+                    production rule: 1122, number of kids: 2
+                      Symbol Name: int, production rule: 263, number of kids: 0
+                      production rule: 6909, number of kids: 1
+                        Symbol Name: redefined2, production rule: 267, number of kids: 0
+                    production rule: 1124, number of kids: 1
+                      Symbol Name: =, production rule: 286, number of kids: 0
+                    production rule: 6900, number of kids: 1
+                      Symbol Name: 2, production rule: 272, number of kids: 0
+                production rule: 1120, number of kids: 3
+                  production rule: 1122, number of kids: 2
+                    Symbol Name: int, production rule: 263, number of kids: 0
+                    production rule: 6909, number of kids: 1
+                      Symbol Name: redefined2, production rule: 267, number of kids: 0
+                  production rule: 1124, number of kids: 1
+                    Symbol Name: =, production rule: 286, number of kids: 0
+                  production rule: 6900, number of kids: 1
+                    Symbol Name: 3, production rule: 272, number of kids: 0
+              production rule: 1041, number of kids: 2
+                Symbol Name: int, production rule: 263, number of kids: 0
+                Symbol Name: redefined3, production rule: 267, number of kids: 0
+            production rule: 1120, number of kids: 3
+              production rule: 1122, number of kids: 2
+                Symbol Name: int, production rule: 263, number of kids: 0
+                production rule: 6909, number of kids: 1
+                  Symbol Name: redefined3, production rule: 267, number of kids: 0
+              production rule: 1124, number of kids: 1
+                Symbol Name: =, production rule: 286, number of kids: 0
+              production rule: 6900, number of kids: 1
+                Symbol Name: 2, production rule: 272, number of kids: 0
+      production rule: 1032, number of kids: 3
+        Symbol Name: public, production rule: 292, number of kids: 0
+        production rule: 1033, number of kids: 2
+          Symbol Name: Hello, production rule: 267, number of kids: 0
+     Empty Node
+        production rule: 1037, number of kids: 2
+          production rule: 1037, number of kids: 2
+            production rule: 1041, number of kids: 2
+              Symbol Name: int, production rule: 263, number of kids: 0
+              Symbol Name: c1, production rule: 267, number of kids: 0
+            production rule: 1120, number of kids: 3
+              production rule: 1122, number of kids: 2
+                Symbol Name: int, production rule: 263, number of kids: 0
+                production rule: 6909, number of kids: 1
+                  Symbol Name: c2, production rule: 267, number of kids: 0
+              production rule: 1124, number of kids: 1
+                Symbol Name: =, production rule: 286, number of kids: 0
+              production rule: 6900, number of kids: 1
+                Symbol Name: 6, production rule: 272, number of kids: 0
+          production rule: 1120, number of kids: 3
+            production rule: 6913, number of kids: 1
+              Symbol Name: c2, production rule: 267, number of kids: 0
+            production rule: 1124, number of kids: 1
+              Symbol Name: =, production rule: 286, number of kids: 0
+            production rule: 6900, number of kids: 1
+              Symbol Name: c3, production rule: 267, number of kids: 0
+CLASS Hello
+1000
+1000
+1000
+1000
+1000
+1000
+1000
+1000
+Declaration type is: 3
+PR: 1000
+--Bingo--
+VARIABLE h1
+Adding: h1
+267
+1007
+METHOD HelloWorld
+267
+1027
+1026
+1025
+1003
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1003
+1000
+267
+1027
+1026
+1025
+Declaration type is: 2
+PR: 1025
+Adding: int
+263
+1031
+Adding: x
+267
+1031
+VARIABLE sus
+Adding: sus
+267
+1041
+	 -- sus  267
+sus is defined, Just check for double defining now!
+	 -- b  267
+	 Parent not null
+	 Parent not null
+	 Parent null: b
+	 -- h1  267
+	 Parent not null
+h1 is defined, Just check for double defining now!
+	 -- goodbyeWorld  267
+	 Parent not null
+	 Parent not null
+	 Parent null: goodbyeWorld
+267
+1085
+1037
+1025
+1003
+1003
+1003
+1000
+267
+1085
+1037
+1025
+1003
+1003
+1003
+1000
+267
+1085
+1037
+1025
+1003
+1003
+1003
+1000
+267
+1085
+1037
+1025
+1003
+1003
+1003
+1000
+267
+1085
+1037
+1025
+1003
+1003
+1003
+1000
+267
+1085
+1037
+1025
+decl: 2
+METHOD goodbyeWorld
+267
+1027
+1026
+1025
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1000
+267
+1027
+1026
+1025
+1003
+1003
+1000
+267
+1027
+1026
+1025
+Declaration type is: 2
+PR: 1025
+Adding: int
+263
+1031
+Adding: y
+267
+1031
+	 -- HelloWorld  267
+	 Parent not null
+HelloWorld is defined, Just check for double defining now!
+	 -- Hello  267
+	 Parent not null
+	 Parent not null
+Hello is defined, Just check for double defining now!
+	 -- x  267
+	 Parent not null
+	 Parent not null
+	 Parent null: x
+	 -- Hello  267
+	 Parent not null
+	 Parent not null
+Hello is defined, Just check for double defining now!
+	 -- array1  267
+	 Parent not null
+	 Parent not null
+	 Parent null: array1
+VARIABLE redefined
+Adding: redefined
+267
+1041
+VARIABLE redefined
+Adding: redefined
+267
+1041
+	 -- redefined2  267
+	 Parent not null
+	 Parent not null
+	 Parent null: redefined2
+	 -- redefined2  267
+redefined2 is defined, Just check for double defining now!
+VARIABLE redefined3
+Adding: redefined3
+267
+1041
+	 -- redefined3  267
+redefined3 is defined, Just check for double defining now!
+CONSTRUCTOR Hello
+267
+1033
+1032
+1003
+1000
+267
+1033
+1032
+1003
+1000
+267
+1033
+1032
+1003
+1000
+267
+1033
+1032
+1003
+1000
+267
+1033
+1032
+1003
+1000
+267
+1033
+1032
+1003
+1000
+267
+1033
+Declaration type is: 4
+PR: 1032
+VARIABLE c1
+Adding: c1
+267
+1041
+	 -- c2  267
+	 Parent not null
+	 Parent not null
+	 Parent null: c2
+	 -- c2  267
+c2 is defined, Just check for double defining now!
+	 -- c3  267
+	 Parent not null
+	 Parent not null
+	 Parent null: c3
+267
+6900
+1120
+1037
+1032
+1003
+1000
+267
+6900
+1120
+1037
+1032
+1003
+1000
+267
+6900
+267
+6900
+267
+6900
+decl: 1
+UNKNOWN VARIABLE: c3
+	 YUH OH YUH OH YUH OH!!!!!!! NOT declaration: c3
+267
+6900
+1120
+1037
+1032
+1003
+1000
+267
+6900
+1120
+1037
+1032
+1003
+1000
+267
+6900
+267
+6900
+267
+6900
+c3:: prule: 267 parent's prule: 6900 grandparent's prule: 1120, decl:1
+Number: 0
+Number: 1
+Number: 2
+--  Hello
+|  |  Number: 0
+|  |  Number: 1
+|  |  --  goodbyeWorld
+|  |  |  |  Number: 0
+|  |  |  |  --  x
+|  |  |  |  --  redefined
+|  |  |  |  --  redefined
+|  |  |  |  --  redefined3
+|  |  |  |  Number: 1
+|  |  |  |  Number: 2
+|  |  |  |  --  int
+|  |  |  |  --  y
+|  |  |  |  --  array1
+|  |  |  |  --  redefined2
+|  |  |  |  Number: 3
+|  |  |  |  Number: 4
+|  |  Number: 2
+|  |  --  Hello
+|  |  |  |  Number: 0
+|  |  |  |  Number: 1
+|  |  |  |  --  c2
+|  |  |  |  Number: 2
+|  |  |  |  Number: 3
+|  |  |  |  Number: 4
+|  |  |  |  --  c1
+|  |  Number: 3
+|  |  --  HelloWorld
+|  |  |  |  Number: 0
+|  |  |  |  --  x
+|  |  |  |  Number: 1
+|  |  |  |  --  b
+|  |  |  |  Number: 2
+|  |  |  |  --  int
+|  |  |  |  Number: 3
+|  |  |  |  --  sus
+|  |  |  |  Number: 4
+|  |  Number: 4
+|  |  --  h1
+Number: 3
+Number: 4

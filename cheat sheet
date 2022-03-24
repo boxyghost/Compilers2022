@@ -1,0 +1,9 @@
+{ alcTreeOneKids($1); }
+{ alcTreeTwoKids($1, $2); }
+{ alcTreeThreeKids($1, $2, $3); }
+{ alcTreeFourKids($1, $2, $3, $4); }
+{ alcTreeFiveKids($1, $2, $3, $4, $5); }
+{ alcTreeSixKids($1, $2, $3, $4, $5, $6); }
+
+{ $$ = $1 }
+{$$ = NULL}

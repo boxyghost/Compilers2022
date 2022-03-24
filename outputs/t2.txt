@@ -1,0 +1,60 @@
+  production rule: 1000, number of kids: 4
+    Symbol Name: public, production rule: 292, number of kids: 0
+    Symbol Name: class, production rule: 269, number of kids: 0
+    Symbol Name: hello, production rule: 267, number of kids: 0
+    production rule: 1025, number of kids: 2
+      production rule: 1026, number of kids: 4
+        Symbol Name: public, production rule: 292, number of kids: 0
+        Symbol Name: static, production rule: 293, number of kids: 0
+        Symbol Name: void, production rule: 265, number of kids: 0
+        production rule: 1027, number of kids: 2
+          Symbol Name: helloWorld, production rule: 267, number of kids: 0
+     Empty Node
+      production rule: 1037, number of kids: 2
+        production rule: 1037, number of kids: 2
+          production rule: 1037, number of kids: 2
+            production rule: 1037, number of kids: 2
+              production rule: 1041, number of kids: 2
+                Symbol Name: String, production rule: 267, number of kids: 0
+                Symbol Name: sus, production rule: 267, number of kids: 0
+              production rule: 1120, number of kids: 3
+                Symbol Name: sus, production rule: 267, number of kids: 0
+                production rule: 1124, number of kids: 1
+                  Symbol Name: =, production rule: 286, number of kids: 0
+                Symbol Name: "yo", production rule: 274, number of kids: 0
+            production rule: 1120, number of kids: 3
+              production rule: 1122, number of kids: 2
+                Symbol Name: String, production rule: 267, number of kids: 0
+                Symbol Name: b, production rule: 267, number of kids: 0
+              production rule: 1124, number of kids: 1
+                Symbol Name: =, production rule: 286, number of kids: 0
+              Symbol Name: "b", production rule: 274, number of kids: 0
+          production rule: 1130, number of kids: 2
+            Symbol Name: b, production rule: 267, number of kids: 0
+            Symbol Name: ++, production rule: 308, number of kids: 0
+        production rule: 1130, number of kids: 2
+          Symbol Name: b, production rule: 267, number of kids: 0
+          Symbol Name: ++, production rule: 308, number of kids: 0
+	 -- hello  267
+	 -- helloWorld  267
+	 -- String  267
+	 -- sus  267
+	 -- sus  267
+	 -- String  267
+	 -- b  267
+	 -- b  267
+	 -- b  267
+		 Number: 0
+	hello
+	helloWorld
+		 Number: 1
+	b
+	b
+	b
+		 Number: 2
+		 Number: 3
+	String
+	sus
+	sus
+	String
+		 Number: 4
