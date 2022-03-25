@@ -19,7 +19,7 @@ typedef struct sym_entry {
 
 struct sym_table * mksymtab(struct sym_table *);
 void cleanup_tree(struct tree *);
-int add_sym_entry(struct tree *, struct sym_table *);
+int add_sym_entry(struct tree *, struct sym_table *table);
 struct sym_table *fill_sym_entry(int decl_type, char *name, struct sym_table *table);
 void printtable(struct sym_table *, int);
 int hash(SymbolTable st, char *s);

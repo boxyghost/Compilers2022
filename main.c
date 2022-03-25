@@ -31,6 +31,8 @@ int main(int argc, char const *argv[]) {
         if (strncmp(argv[i], "-symtab", 7*sizeof(char)) == 0) symtab = 1;
     }
 
+    struct sym_table * table = mksymtab(NULL);
+
     for (size_t file_count = 1; file_count < argc; file_count++) {
           int inlen = strlen(argv[file_count]);
 
@@ -47,15 +49,15 @@ int main(int argc, char const *argv[]) {
           }
 
           yyparse();//printf("yyparse returns %d.\n\n\n", yyparse());
-           tree_print(top, 0);
+          //tree_print(top, 0);
             // print_graph(top, "dot.dot");
           //printsyms(top);
           cleanup_tree(top);
-          struct sym_table * table = mksymtab(NULL);
           if (add_sym_entry(top, table) != 0) {
             printf("Failed to compile due to symbolic error.\n");
             return 3; // error!
           }
+          printf("--- symbol table for: Global\n");
           printtable(table, 0);
 
           if (check_all_unchecked(table) != 0) {
