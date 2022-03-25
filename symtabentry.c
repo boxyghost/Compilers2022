@@ -327,11 +327,7 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    
-    
-
     printf("--Bingo--\n");
-
     
     struct tree *next = t->kids[3]; // body of class
     for (int i = 0; i < next->nkids; i++) {
@@ -353,26 +349,19 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
 
-    next_sym_entry->table = mksymtab(table);
+    struct sym_table *next_table = fill_sym_entry(declaration_type, name, table);
+
     struct tree *next = t->kids[1]->kids[1]; // parameter list
     if (next != NULL) {//possible that we don't have any inputs in this constructor
       for (int i = 0; i < next->nkids; i++) {
-        add_all_variables(next->kids[i], next_sym_entry->table);
+        add_all_variables(next->kids[i], next_table);
       }
     }
     next = t->kids[2];                                //body of constructor
     if (next != NULL) {//possible that we don't have any inputs in this constructor
       for (int i = 0; i < next->nkids; i++) {
-        add_sym_entry(next->kids[i], next_sym_entry->table);
+        add_sym_entry(next->kids[i], next_table);
       }
     }
     return;
@@ -391,32 +380,21 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    // //printf("%s\n", t->leaf->tt != NULLext);
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
 
-    strcpy(to_be_checked_classes[unchecked_classes], t->kids[0]->kids[2]->symbolname);
-    unchecked_classes++;
-
-    next_sym_entry->table = mksymtab(table);
+    struct sym_table *next_table = fill_sym_entry(declaration_type, name, table);
     //     // printf("%x vs %x\n", (unsigned int) next_sym_entry->table, table);
     //     // next_sym_entry->table->parent = table;
     //     // table = next_sym_entry->table;
+
     struct tree *next = t->kids[0]->kids[3]->kids[1]; // parameter list
     //TODO make case for no parameters
     if (next) {
         for (int i = 0; i < next->nkids; i++) {
-          add_all_variables(next->kids[i], next_sym_entry->table);
+          add_all_variables(next->kids[i], next_table);
         }
         next = t->kids[1];                                //body of function
         for (int i = 0; i < next->nkids; i++) {
-          add_sym_entry(next->kids[i], next_sym_entry->table);
+          add_sym_entry(next->kids[i], next_table);
         }
         return;
     }
