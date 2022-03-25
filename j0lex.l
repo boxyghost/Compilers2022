@@ -10,6 +10,9 @@
       #include "j0gram.tab.h"
       #include "tree.h"
 			int rows = 1, words = 0, chars = 0;
+
+
+
 %}
 
 %%
@@ -24,7 +27,6 @@
 "\'"         {return alctoken(1);}
 "\/\*"       {return alctoken(1);}
 [\t ] {}
-
 "boolean"    {return alctoken(BOOL);} /* Allowed reserved j0 words */
 "break"      {return alctoken(BREAK);}
 "case"       {return alctoken(CASE);}
@@ -118,15 +120,6 @@
 "/*"([^*]|"*"+[^/*])*"*"+"/"                    {int countlines();countlines();/*todo do we need to do this twice?*/}
 \n		                                        {rows++;}
 [A-Za-z_][A-Za-z0-9_]*	                        {return alctoken(IDENTIFIER);}
-
-"java.util.Random.nextInt"                      {return alctoken(IDENTIFIER);}
-"java.lang.Math."("abs"|"max"|"min"|"pow")      {return alctoken(IDENTIFIER);}
-"String."("charAt"|"equals"|"compareTo"|"length"|"toString"|"substring") {return alctoken(IDENTIFIER);}
-"System."("out"("print"|"println"))|("in.read") {return alctoken(IDENTIFIER);}
-"InputStream.read"                              {return alctoken(IDENTIFIER);}
-
-
-
 <<EOF>>                                         {return -1;}
 [0-9]+("e"|"E")[0-9]+                           {return alctoken(LDOUBLE);}
 [0-9]+"e"                               {return alctoken(1);}
