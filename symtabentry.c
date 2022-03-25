@@ -373,10 +373,52 @@ void sortoutmultivar(struct tree *t, struct sym_table * table) {
   }
 }
 
-void add_sym_entry(struct tree * t, struct sym_table * table) {
-  if (t == NULL) {
-    return;
+int checkifdef(struct tree *t, struct sym_table *table) {
+  if (t->leaf != NULL && t->leaf->text != NULL && is_sym_entered(t->leaf->text, table) != 0) {// checking for variables
+    // printf("%s is defined, Just check for double defining now!\n", t->leaf->text);
+    if (t->parent->prodrule == 1085) { // false alarm, re-use of variable
+      return 0;
+    }
+    printf("%d, %d\n", t->parent->prodrule, is_sym_entered(t->leaf->text, table));
+    if (t->parent->prodrule == 1027 && is_sym_entered(t->leaf->text, table) != 2) { // false alarm, re-use of variable
+      return 0;
+    }
+    if (t->parent->prodrule == 6913) { // false alarm, re-use of variable
+      return 0;
+    }
+    if (t->parent->prodrule == 1130) { // false alarm, ++ of variable
+      return 0;
+    }
+    if (t->parent->prodrule == 1085) { // false alarm, use of constructor
+      return 0;
+    }
+    if (t->parent->prodrule == 1033) { // making of constructor
+      return 0;
+    }
+    if (t->parent->prodrule == 1007 && t->parent->kids[0] == t) { // checking the type of a variable
+      return 0;
+    }
+    if (t->parent->prodrule == 1041 && t->parent->kids[0] == t) { // checking the type of a variable
+      return 0;
+    }
+    if (t->parent->prodrule == 1158 && t->parent->kids[1] == t) { // checking the type of a new const()
+      return 0;
+    }
+    // printf("ERROR ERROR ERROR ^^^\n");
+    return 1;
   }
+  return 0; // no problem
+}
+
+int add_sym_entry(struct tree * t, struct sym_table * table) {
+  if (t == NULL) {
+    return 0;
+  }
+
+  // if (checkifdef(t, table) == 1) {
+  //   printf("Problem: \n");
+  //   return 1; // error
+  // }
 
   if (t->prodrule == 1000) { // Class declaration
     printf("CLASS ");
@@ -403,7 +445,10 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
 
     printf("CONSTRUCTOR ");
     char * name = t->kids[1]->kids[0]->symbolname;
-    printf("%s\n", name);
+    // printf("%s\n", name);
+    if (checkifdef(t->kids[1]->kids[0], table) == 1) {
+      printf("Double Defined Construcor: %s\n", name);
+    }
 
     // printf("\t method declaration: %s\n", t->leaf->text);
     int declaration_type = is_decl(t->kids[1]->kids[0]);
@@ -434,8 +479,13 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
 
     printf("METHOD ");
     char * name = t->kids[0]->kids[3]->kids[0]->symbolname;
-    printf("%s\n", name);
 
+    // printf("%s\n", name);
+    if (checkifdef(t->kids[0]->kids[3]->kids[0], table) == 1) {
+      printf("Double defined method: %s\n", name);
+    }
+
+    
     // printf("\t method declaration: %s\n", t->leaf->text);
     int declaration_type = is_decl(t->kids[0]->kids[3]->kids[0]);
     if (declaration_type != 2) { // not a function ?? need to determine that this is right lol
