@@ -1,6 +1,6 @@
 public class Hello {
   Hello h1;
-  // int h2 = 3;
+  int h2, b;
   public static /*beepboop*/ int HelloWorld(int x) { // brynn lets figure out how to make it check the return values
     /*String should be able to be string when we add inbuilt in types*/int sus;
     sus = "yo";

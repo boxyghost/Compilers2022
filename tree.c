@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
+#include <errno.h>
 
 extern YYSTYPE yylval;
 extern char * yytext;
@@ -113,6 +115,33 @@ struct tree * kido(int i){
 
   return r;
 }
+
+// Replacement tree generation function
+// Allows for tree creation for any number of children
+struct tree *make_tree(int pr, char *symb, int nkids, ...){
+    struct tree *t = NULL;
+    t = malloc(sizeof(struct tree));
+    if (!t) exit(ENOMEM);
+
+    t->prodrule = pr;
+    t->symbolname = strdup(symb); // Need to handle memory better here?
+    t->nkids = nkids;
+    t->id = serial++;
+
+    va_list valist;
+    va_start(valist, nkids); // Get all arguments after nkids
+    
+    int i;
+    for (i = 0; i < nkids; i++) {
+        t->kids[i] = va_arg(valist, struct tree*);
+    }
+
+    va_end(valist);
+    yylval.treeptr = t;
+    return t;
+    
+}
+
 
 struct tree * alcTreeOneKids(struct tree * kid, int prule) {
   yylval.treeptr = calloc(1, sizeof(struct tree));

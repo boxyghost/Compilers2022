@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "symtabentry.h"
 #include "j0gram.tab.h"
+#include "defines.h"
 
 struct sym_table * table;
 int unchecked_classes = 0;
@@ -11,6 +12,8 @@ int unchecked_constructors = 0;
 char to_be_checked_constructors[512][128];
 int unchecked_methods = 0;
 char to_be_checked_methods[512][128]; // I know 512 is a lot but we could have some funky programs
+
+extern int symtab;
 
 int check_class(char * name, struct sym_table * t) {
   if (strcmp(name, "int") == 0) {// brynn: this is a workaround. Better to add to the table later, this is just so I have something to test lol
@@ -122,6 +125,41 @@ struct sym_table * mksymtab(struct sym_table * parent) {
   // printf("Bucket 2 %s\n", t->tbl[2]->s);
   // printf("Bucket 3 %s\n", t->tbl[3]->s);
   // printf("Bucket 4 %s\n", t->tbl[4]->s);
+  //
+  
+  
+  // If parent is null, its global -> add built in stuff:
+  if (!parent) {
+      fill_sym_entry(2, "System.out.print", t);
+      fill_sym_entry(2, "System.out.println", t);
+      fill_sym_entry(2, "String.charAt", t);
+      fill_sym_entry(2, "String.equals", t);
+      fill_sym_entry(2, "String.compareTo", t);
+      fill_sym_entry(2, "String.length", t);
+      fill_sym_entry(2, "String.toString", t);
+      fill_sym_entry(2, "InputStream.read", t);
+      fill_sym_entry(2, "System.in.read", t);
+      fill_sym_entry(2, "String.substring", t);
+      fill_sym_entry(2, "java.util.Random.nextInt", t);
+      fill_sym_entry(2, "java.lang.Math.abs", t);
+      fill_sym_entry(2, "java.lang.Math.max", t);
+      fill_sym_entry(2, "java.lang.Math.min", t);
+      fill_sym_entry(2, "java.lang.Math.pow", t);
+
+
+/*
+
+      System.out.print(s)
+      System.out.println(s)
+      String.charAt(n)
+      String.equals(s)
+      String.compareTo(s)  // ? do we need both this and equals()?
+      String.length()
+      String.toString(i) vs. String.valueOf()  ??
+      InputStream.read()   // ? is there a better input?
+      System.in.read() ? */
+  }
+
   return t;
 }
 
@@ -174,7 +212,7 @@ int is_sym_entered(char * text, struct sym_table * table) { // brynn this is the
 int is_decl_var(struct tree *t) {
   while (t != NULL) {
     printf("%d\n", t->prodrule);
-    if (t->prodrule == 1007 || t->prodrule == 1031 || t->prodrule == 1041 || t->prodrule == 6909) { // variable declaration. TODO: Determine if there are more.
+    if (t->prodrule == FIELD_DECL || t->prodrule == FORMAL_PARM || t->prodrule == LOCAL_VAR_DECL || t->prodrule == 6909) { // variable declaration. TODO: Determine if there are more.
                       // maybe should return a different number for class and for function declaration?
       return 1; // it is a declaration
     }
@@ -197,7 +235,7 @@ int is_use_var(struct tree *t) {// this is not for declaring, just using a varia
 int is_decl_method(struct tree *t) {
   while (t != NULL) {
     printf("%d\n", t->prodrule);
-    if (t->prodrule == 1025) { // method declaration
+    if (t->prodrule == METHOD_DECL) { // method declaration
       return 2;
     }
     t = t->parent;
@@ -248,7 +286,7 @@ int is_decl(struct tree * t) { // returns 0 if not declared, 1 if declared as a 
   while (t != NULL) {
     // printf("%d\n", t->prodrule);
     if (is_decl_var(t) == 1) {
-          //t->prodrule == 1007 || t->prodrule == 1031 || t->prodrule == 1041 || t->prodrule == 1122) { // variable declaration. TODO: Determine if there are more.
+          //t->prodrule == FIELD_DECL || t->prodrule == FORMAL_PARM || t->prodrule == LOCAL_VAR_DECL || t->prodrule == 1122) { // variable declaration. TODO: Determine if there are more.
                       // maybe should return a different number for class and for function declaration?
       return 1; // it is a declaration
     } else if (is_use_var(t) == 1) {
@@ -293,13 +331,54 @@ void add_all_variables(struct tree * t, struct sym_table * table) {
   }
 }
 
+// Helpter function for add_sym_entry -B
+struct sym_table *fill_sym_entry(int decl_type, char *name, struct sym_table *table) {
+    struct sym_entry *next_sym_entry = getnextentry(table, hash(table, name));
+    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
+    next_sym_entry = next_sym_entry->next;
+    next_sym_entry->declaration_type = decl_type;
+    next_sym_entry->next = NULL;
+    next_sym_entry->s = calloc(128, sizeof(char));
+    strncpy(next_sym_entry->s, name, 128);
+    table->nEntries++;
+    next_sym_entry->table = mksymtab(table);
+    return(next_sym_entry->table);
+}
+
+void sortoutmultivar(struct tree *t, struct sym_table * table) {
+  printf("here\n");
+  if (t->prodrule == 267) {
+    //declare the variable name here
+    printf("Adding: %s\n", t->symbolname);
+    // I think this can be covered by fill_sym_entry -B TODO
+    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, t->symbolname));
+    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
+    next_sym_entry = next_sym_entry->next;
+    next_sym_entry->declaration_type = is_decl(t);
+    next_sym_entry->next = NULL;
+    //printf("%s\n", t->leaf->text);
+    next_sym_entry->s = calloc(128, sizeof(char));
+    strncpy(next_sym_entry->s, t->symbolname, 128);
+    table->nEntries++;
+  }
+  if (t->prodrule == 1021) {
+    //just 2 name declarations
+    sortoutmultivar(t->kids[0], table);
+    sortoutmultivar(t->kids[1], table);
+  }
+  if (t->prodrule == 6915) {
+    //name and Assignment
+    //kid at t->0->0
+    sortoutmultivar(t->kids[0]->kids[0], table);
+  }
+}
+
 void add_sym_entry(struct tree * t, struct sym_table * table) {
   if (t == NULL) {
     return;
   }
 
   if (t->prodrule == 1000) { // Class declaration
-
     printf("CLASS ");
     char * name = t->kids[2]->symbolname;
     printf("%s\n", name);
@@ -311,25 +390,16 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
     printf("--Bingo--\n");
-
-    next_sym_entry->table = mksymtab(table);
+    
     struct tree *next = t->kids[3]; // body of class
     for (int i = 0; i < next->nkids; i++) {
-      add_sym_entry(next->kids[i], next_sym_entry->table);
+      add_sym_entry(next->kids[i], fill_sym_entry(declaration_type, name, table));
     }
     return;
   }
 
-  if (t->prodrule == 1032) { // constructor
+  if (t->prodrule == CONSTRUCTOR_DECL) { // constructor
 
     printf("CONSTRUCTOR ");
     char * name = t->kids[1]->kids[0]->symbolname;
@@ -342,32 +412,25 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
 
-    next_sym_entry->table = mksymtab(table);
+    struct sym_table *next_table = fill_sym_entry(declaration_type, name, table);
+
     struct tree *next = t->kids[1]->kids[1]; // parameter list
     if (next != NULL) {//possible that we don't have any inputs in this constructor
       for (int i = 0; i < next->nkids; i++) {
-        add_all_variables(next->kids[i], next_sym_entry->table);
+        add_all_variables(next->kids[i], next_table);
       }
     }
     next = t->kids[2];                                //body of constructor
     if (next != NULL) {//possible that we don't have any inputs in this constructor
       for (int i = 0; i < next->nkids; i++) {
-        add_sym_entry(next->kids[i], next_sym_entry->table);
+        add_sym_entry(next->kids[i], next_table);
       }
     }
     return;
   }
 
-  if (t->prodrule == 1025) { // MethodDecl -- this is a method!
+  if (t->prodrule == METHOD_DECL) { // MethodDecl -- this is a method!
 
     printf("METHOD ");
     char * name = t->kids[0]->kids[3]->kids[0]->symbolname;
@@ -380,32 +443,20 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    // //printf("%s\n", t->leaf->tt != NULLext);
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
 
-    strcpy(to_be_checked_classes[unchecked_classes], t->kids[0]->kids[2]->symbolname);
-    unchecked_classes++;
+    struct sym_table *next_table = fill_sym_entry(declaration_type, name, table);
 
-    next_sym_entry->table = mksymtab(table);
-    //     // printf("%x vs %x\n", (unsigned int) next_sym_entry->table, table);
-    //     // next_sym_entry->table->parent = table;
-    //     // table = next_sym_entry->table;
     struct tree *next = t->kids[0]->kids[3]->kids[1]; // parameter list
-    for (int i = 0; i < next->nkids; i++) {
-      add_all_variables(next->kids[i], next_sym_entry->table);
+    if (next) {
+        for (int i = 0; i < next->nkids; i++) {
+          add_all_variables(next->kids[i], next_table);
+        }
+        next = t->kids[1];                                //body of function
+        for (int i = 0; i < next->nkids; i++) {
+          add_sym_entry(next->kids[i], next_table);
+        }
+        return;
     }
-    next = t->kids[1];                                //body of function
-    for (int i = 0; i < next->nkids; i++) {
-      add_sym_entry(next->kids[i], next_sym_entry->table);
-    }
-    return;
     // end of a block -- might need to change this to scope/class ect... to be more specific and fix for loops lol
     // if (table->parent != NULL) { // todo may be able to get rid of this?
     //   table = table->parent;
@@ -414,7 +465,18 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     //   printf("\n-------null????----------\n\n");
     // }
   }
-  if (t->prodrule == 1041 /*LocalVarDecl*/ || t->prodrule == 1007 /*FieldDecl*/ || t->prodrule == 1031 /*FormalParm*/) { // variables Declarations! -- this is a method!
+  if (t->prodrule == LOCAL_VAR_DECL /*LocalVarDecl*/ || t->prodrule == FIELD_DECL /*FieldDecl*/ || t->prodrule == FORMAL_PARM /*FormalParm*/) { // variables Declarations! -- this is a method!
+    if (t->prodrule == 1041 || (t->prodrule == 1007 && t->kids[1]->prodrule == 1021)) {
+      printf("herehreh\n");
+      /* code */ // john do this later --  for multi line
+
+      //check type of t->kid[0]
+      strcpy(to_be_checked_classes[unchecked_classes], t->kids[0]->symbolname);
+      unchecked_classes++;
+      sortoutmultivar(t->kids[1], table);
+      return;
+    }
+
       // for LeftHandSide (1122) We need to be careful not to be tricked into defining the type of this, but instead just making sure it exists
     // if (t->prodrule == 1122) {
     //   // char * typename = t->kids[0]->symbolname;

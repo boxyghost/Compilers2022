@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-g -Wall
 OBJFLAGS= -c
 
-all: bison flex tree main lex.yy j0gram.tab linkall
+all: bison flex tree main lex.yy j0gram.tab linkall clean
 
 bison: j0gram.y tree.h symtabentry.h
 	bison -v -d -Dparse.trace j0gram.y
@@ -27,4 +27,4 @@ linkall:
 	$(CC) -g -Wall main.o j0gram.tab.o lex.yy.o tree.o symtabentry.o -o j0
 
 clean:
-	rm lex.yy.c lex.yy.o j0gram.tab.c tree.o j0gram.tab.o main.o symtabentry.o j0
+	rm lex.yy.c lex.yy.o j0gram.tab.c tree.o j0gram.tab.o main.o symtabentry.o j0gram.output j0gram.tab.h

@@ -28,6 +28,8 @@ struct tree * kido(int i);
 void print_graph(struct tree *t, char * filename);
 void print_subgraph(struct tree *t, FILE *f);
 
+struct tree *make_tree(int pr, char *symb, int nkids, ...); // To be implemented later
+
 struct tree * alcTreeOneKids(struct tree * kid, int prule);
 struct tree * alcTreeTwoKids(struct tree * kid1, struct tree * kid2, int prule);
 struct tree * alcTreeThreeKids(struct tree * kid1, struct tree * kid2, struct tree * kid3, int prule);

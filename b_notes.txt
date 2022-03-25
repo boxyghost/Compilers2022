@@ -1,0 +1,56 @@
+TODO:
+
+Fix formatting according to homework doc
+
+built in types for String, int, ect
+
+built in methods for print, ect
+
+proper exit codes according to homework
+
+
+      ###   Homework 4 requirements   ###
+  1. Symbol tables
+    - Build a symbol table data type that you can instantiate for each scope:
+        1. Global
+        2. Per class
+        3. Per class
+        4. Per funciton/local params
+
+  2. Predefined symbol tables
+    - Predefined Java objects/classes mentioned in the j0 spec
+#   array.get() and .set()
+
+  3. Variable delcarations
+    - Error for variables redeclared in same scope
+    - Detect and report for undeclared variables
+        ~ Include filename, line number, and offending variable name
+
+  4. Output
+    - Commandline option "-symtab" to print a human readable symbol table
+
+     ######   j0.2 Requirements   ######
+  1. "In j0.2+ the second and third parts of a for-loop are expressions constrained
+  to produce boolean and integer values".
+
+  2. "j0.2+ has switch statements"
+  (requires constant. non-duplicate cases. Breaks required, Default required w/o break)
+
+  3. "j0.2+ has user-defined (simple) classes"
+  ("J0 should support enought in terms of references to allow operations essential
+  for strings and arrays only")
+
+  4. "j0.2+ includes +=, -="
+
+  5. "j0.2+ does type casts"
+
+  6. "j0.2+ does hexadecimal"
+
+  7. "j0.2 only does simple real numbers involving one or more integers to the left
+  or right (or both) of a decimal"
+
+  8. "j0.2 also supports \a, \f, \r, \0 octals"
+
+  9. "j0.2+ classes are a subset of Java classes" no nested classes in classes.
+  Classes can be referenced as fields within a class.
+
