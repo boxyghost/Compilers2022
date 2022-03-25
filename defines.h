@@ -60,3 +60,12 @@
 #define PRIMARY_EXPRESSION 1570
 #define ARGUMENT_EXPRESSION_LIST 1580
 #define DEFAULT_STATEMENT 1590
+
+/* Sloppily added defines for readability -B */
+#define CONSTRUCTOR_DECL 1032
+#define METHOD_DECL 1025
+#define FIELD_DECL 1007
+#define FORMAL_PARM 1031
+#define LHS_TYPE_NAME 1122
+#define LOCAL_VAR_DECL 1041
+#define LHS_NAME 6909

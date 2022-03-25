@@ -90,7 +90,9 @@ QualifiedName: Name '.' IDENTIFIER { $$ = alcTreeTwoKids($1, $3, 1018); }
 
 VarDecls: VarDeclarator { $$ = $1; } 
 	|  VarDecls ',' VarDeclarator { $$ = alcTreeTwoKids($1, $3, 1021); };
-VarDeclarator: Name { $$ = $1; };
+
+VarDeclarator: Name { $$ = $1; } 
+    | Name AssignOp Expr {$$ = alcTreeThreeKids(alcTreeOneKids($1, 6913), $2, alcTreeOneKids($3, 6900), 6915);};
 
 MethodReturnVal : Type { $$ = $1; } 
 	|  VOID { $$ = $1; } ;
