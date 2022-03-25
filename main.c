@@ -9,6 +9,8 @@ FILE *yyin;
 int yyparse();
 char file_name_in[128];
 
+int symtab = 0; // Commandline option to print human readable symbol table
+
 extern struct tree * top;
 extern char * yytext;
 extern YYSTYPE yylval;
@@ -24,6 +26,11 @@ void yyerror(char *s) {
 }
 
 int main(int argc, char const *argv[]) {
+    for (int i = 1; i < argc; i++) {
+        // Check for commandline arguments (This should be changed if scale increases -B)
+        if (strncmp(argv[i], "-symtab", 7*sizeof(char)) == 0) symtab = 1;
+    }
+
     for (size_t file_count = 1; file_count < argc; file_count++) {
           int inlen = strlen(argv[file_count]);
 
