@@ -48,7 +48,7 @@ int main(int argc, char const *argv[]) {
 
           yyparse();//printf("yyparse returns %d.\n\n\n", yyparse());
            tree_print(top, 0);
-            print_graph(top, "dot.dot");
+            // print_graph(top, "dot.dot");
           //printsyms(top);
           cleanup_tree(top);
           struct sym_table * table = mksymtab(NULL);
