@@ -293,6 +293,22 @@ void add_all_variables(struct tree * t, struct sym_table * table) {
   }
 }
 
+
+
+// Helpter function for add_sym_entry -B
+struct sym_table *fill_sym_entry(int decl_type, char *name, struct sym_table *table) {
+    struct sym_entry *next_sym_entry = getnextentry(table, hash(table, name));
+    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
+    next_sym_entry = next_sym_entry->next;
+    next_sym_entry->declaration_type = decl_type;
+    next_sym_entry->next = NULL;
+    next_sym_entry->s = calloc(128, sizeof(char));
+    strncpy(next_sym_entry->s, name, 128);
+    table->nEntries++;
+    next_sym_entry->table = mksymtab(table);
+    return(next_sym_entry->table);
+}
+
 void add_sym_entry(struct tree * t, struct sym_table * table) {
   if (t == NULL) {
     return;
@@ -311,20 +327,15 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     }
     printf("Declaration type is: %d\n", declaration_type);
     printf("PR: %d\n", t->prodrule);
-    struct sym_entry * next_sym_entry = getnextentry(table, hash(table, name));
-    next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
-    next_sym_entry = next_sym_entry->next;
-    next_sym_entry->declaration_type = declaration_type;
-    next_sym_entry->next = NULL;
-    next_sym_entry->s = calloc(128, sizeof(char));
-    strncpy(next_sym_entry->s, name, 128);
-    table->nEntries++;
+    
+    
+
     printf("--Bingo--\n");
 
-    next_sym_entry->table = mksymtab(table);
+    
     struct tree *next = t->kids[3]; // body of class
     for (int i = 0; i < next->nkids; i++) {
-      add_sym_entry(next->kids[i], next_sym_entry->table);
+      add_sym_entry(next->kids[i], fill_sym_entry(declaration_type, name, table));
     }
     return;
   }
@@ -418,7 +429,7 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     // }
   }
   if (t->prodrule == 1041 /*LocalVarDecl*/ || t->prodrule == 1007 /*FieldDecl*/ || t->prodrule == 1031 /*FormalParm*/) { // variables Declarations! -- this is a method!
-      // for LeftHandSide (1122) We need to be careful not to be tricked into defining the type of this, but instead just making sure it exists
+    // for LeftHandSide (1122) We need to be careful not to be tricked into defining the type of this, but instead just making sure it exists
     // if (t->prodrule == 1122) {
     //   // char * typename = t->kids[0]->symbolname;
     //   // brynn --> please add t->kids[0]->symbolname (above) to the list of things to check the scope of, make sure it is visible and defined. This might be complicated, but the bare minimum is making sure it's defined somewhere. Thanks!
