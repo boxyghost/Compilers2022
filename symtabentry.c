@@ -125,6 +125,41 @@ struct sym_table * mksymtab(struct sym_table * parent) {
   // printf("Bucket 2 %s\n", t->tbl[2]->s);
   // printf("Bucket 3 %s\n", t->tbl[3]->s);
   // printf("Bucket 4 %s\n", t->tbl[4]->s);
+  //
+  
+  
+  // If parent is null, its global -> add built in stuff:
+  if (!parent) {
+      fill_sym_entry(2, "System.out.print", t);
+      fill_sym_entry(2, "System.out.println", t);
+      fill_sym_entry(2, "String.charAt", t);
+      fill_sym_entry(2, "String.equals", t);
+      fill_sym_entry(2, "String.compareTo", t);
+      fill_sym_entry(2, "String.length", t);
+      fill_sym_entry(2, "String.toString", t);
+      fill_sym_entry(2, "InputStream.read", t);
+      fill_sym_entry(2, "System.in.read", t);
+      fill_sym_entry(2, "String.substring", t);
+      fill_sym_entry(2, "java.util.Random.nextInt", t);
+      fill_sym_entry(2, "java.lang.Math.abs", t);
+      fill_sym_entry(2, "java.lang.Math.max", t);
+      fill_sym_entry(2, "java.lang.Math.min", t);
+      fill_sym_entry(2, "java.lang.Math.pow", t);
+
+
+/*
+
+      System.out.print(s)
+      System.out.println(s)
+      String.charAt(n)
+      String.equals(s)
+      String.compareTo(s)  // ? do we need both this and equals()?
+      String.length()
+      String.toString(i) vs. String.valueOf()  ??
+      InputStream.read()   // ? is there a better input?
+      System.in.read() ? */
+  }
+
   return t;
 }
 
@@ -315,6 +350,7 @@ void sortoutmultivar(struct tree *t, struct sym_table * table) {
   if (t->prodrule == 267) {
     //declare the variable name here
     printf("Adding: %s\n", t->symbolname);
+    // I think this can be covered by fill_sym_entry -B TODO
     struct sym_entry * next_sym_entry = getnextentry(table, hash(table, t->symbolname));
     next_sym_entry->next = calloc(1, sizeof(struct sym_entry));
     next_sym_entry = next_sym_entry->next;
@@ -409,12 +445,8 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     printf("PR: %d\n", t->prodrule);
 
     struct sym_table *next_table = fill_sym_entry(declaration_type, name, table);
-    //     // printf("%x vs %x\n", (unsigned int) next_sym_entry->table, table);
-    //     // next_sym_entry->table->parent = table;
-    //     // table = next_sym_entry->table;
 
     struct tree *next = t->kids[0]->kids[3]->kids[1]; // parameter list
-    //TODO make case for no parameters
     if (next) {
         for (int i = 0; i < next->nkids; i++) {
           add_all_variables(next->kids[i], next_table);
