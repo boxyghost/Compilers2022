@@ -398,14 +398,17 @@ void add_sym_entry(struct tree * t, struct sym_table * table) {
     //     // next_sym_entry->table->parent = table;
     //     // table = next_sym_entry->table;
     struct tree *next = t->kids[0]->kids[3]->kids[1]; // parameter list
-    for (int i = 0; i < next->nkids; i++) {
-      add_all_variables(next->kids[i], next_sym_entry->table);
+    //TODO make case for no parameters
+    if (next) {
+        for (int i = 0; i < next->nkids; i++) {
+          add_all_variables(next->kids[i], next_sym_entry->table);
+        }
+        next = t->kids[1];                                //body of function
+        for (int i = 0; i < next->nkids; i++) {
+          add_sym_entry(next->kids[i], next_sym_entry->table);
+        }
+        return;
     }
-    next = t->kids[1];                                //body of function
-    for (int i = 0; i < next->nkids; i++) {
-      add_sym_entry(next->kids[i], next_sym_entry->table);
-    }
-    return;
     // end of a block -- might need to change this to scope/class ect... to be more specific and fix for loops lol
     // if (table->parent != NULL) { // todo may be able to get rid of this?
     //   table = table->parent;
