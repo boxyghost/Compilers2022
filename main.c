@@ -52,11 +52,15 @@ int main(int argc, char const *argv[]) {
           //printsyms(top);
           cleanup_tree(top);
           struct sym_table * table = mksymtab(NULL);
-          add_sym_entry(top, table);
+          if (add_sym_entry(top, table) != 0) {
+            printf("Failed to compile due to symbolic error.\n");
+            return 3; // error!
+          }
           printtable(table, 0);
 
           if (check_all_unchecked(table) != 0) {
-            printf("We have undefined variables: yuh oh!\n");
+            printf("Failed to compile due to symbolic error.\n");
+            return 3;
           }
     }
 
